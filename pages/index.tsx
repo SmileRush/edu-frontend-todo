@@ -1,5 +1,5 @@
 const index = () => {
-  return "Welcome New World"
+  return 'Welcome New World'
 }
 
 export default index

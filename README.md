@@ -4,9 +4,9 @@
 ### • ~/pages/_document.tsx 만들기         ~는 최상위 폴더 경로 (=root 경로, /를 의미합니다)  
 ### styled-components의 Server Side Rendering을 위한 코드  
 <br />
-<br />
-import Document, { DocumentContext, DocumentInitialProps } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
+
+import Document, { DocumentContext, DocumentInitialProps } from 'next/document'  
+import { ServerStyleSheet } from 'styled-components'  
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext): Promise<DocumentInitialProps> {

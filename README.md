@@ -3,38 +3,43 @@
 
 
 ## $ npm init -y  
-	• .gitignore 생성  
+### • .gitignore 생성  
 	node_modules        <= 한줄만 입력하면 됨  
 
 ## $ npm i next react react-dom  
 ## $ npm i -D typescript @types/react @types/node  
-	• package.json  
-	  "scripts": {  
-	    "dev": "next",  
-	    "build": "next build",  
-	    "start": "next start"  
-	  },  
+#### • package.json  
+```
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+```
 
-	• ~/pages/index.tsx 생성  
-	const index = () => {  
-	  return "Welcome New World"  
-	}  
-	export default index  
-	
+### • ~/pages/index.tsx 생성  
+```
+const index = () => {  
+  return "Welcome New World"  
+}  
+export default index  
+```
 
-##  npm run dev  
+## $ npm run dev  
 
-	• Next가 TypeScript를 감지하여,  
-	tsconfig.json을 자동으로 생성해준다  
+### • Next가 TypeScript를 감지하여, tsconfig.json을 자동으로 생성해준다  
 	
-	strict: false 를 true로 수정.  
-    "strict": true,  
+strict: false 를 true로 수정.  
+```
+"strict": true,
+```
+
+strict는 모든 타입 체킹 옵션을 활성화 한다는 것을 의미한다.  
+이를 활성화하면 엄격한 타입 검사가 활성화된다는 것을의미한다.  
+strict를 사용함으로써 더욱 안정된 코드를 작성할수 있다.  
 	
-	strict는 모든 타입 체킹 옵션을 활성화 한다는 것을 의미한다.  
-	이를 활성화하면 엄격한 타입 검사가 활성화된다는 것을의미한다.  
-	strict를 사용함으로써 더욱 안정된 코드를 작성할수 있다.  
-	
-##  npx eslint --init  
+## $ npx eslint --init  
+```
 	• How would you like to use ESLint?  
 		○ To check syntax, find problems, and enforce code style  
 	• What type of modules does your project use?  
@@ -55,10 +60,10 @@
 	• 마지막으로 npm을 통하여 모듈을 설치하겠냐는 물음에 yes를 입력하면  
 	  '.eslintrc.json' 파일이 생성되고,  
 	  'package.json' 안에 eslint에 필요한 모듈들이 추가된 것을 확인할 수 있다.  
+	```
 	
-	
-• .eslintrc.json 최종본 (복붙해서 쓰셈)  
-
+### • .eslintrc.json 최종본 (복붙해서 쓰셈)  
+```
 {  
   "env": {  
     "browser": true,  
@@ -126,4 +131,5 @@
       }  
     }  
   }  
-}  
+} 
+```

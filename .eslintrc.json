@@ -1,19 +1,23 @@
 {
   "env": {
-    "browser" : true,
-    "es2021"  : true
+    "browser": true,
+    "es2021": true
   },
-  "extends"       : ["plugin:react/recommended", "airbnb"],
-  "parser"        : "@typescript-eslint/parser",
-  "parserOptions" : {
+  "extends": ["plugin:react/recommended", "airbnb"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
     "ecmaFeatures": {
-      "jsx" : true
+      "jsx": true
     },
-    "ecmaVersion" : 13,
-    "sourceType"  : "module"
+    "ecmaVersion": 13,
+    "sourceType": "module"
   },
-  "plugins" : ["react", "@typescript-eslint"],
-  "rules"   : {
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "react/jsx-pascal-case"                 : "off",
+    "react/function-component-definition"   : "off",
+    "camelcase"                             : "off",
+    "eol-last"                              : "off",                     // 마지막에 공란이 없으면 에러를 발생시킴.
     "no-trailing-spaces"                    : "off",                     // 코드의 내용이 없을 때, 빈 공간에 대한 에러
     "semi"                                  : "off",                     // 코드의 끝에 세미콜론을 붙여야 한다.
     "linebreak-style"                       : "off",                     // OS별 개행(=줄바꿈) "\n"(LF) 및 "\r\n"(CRLF) 규칙을 off
@@ -51,17 +55,17 @@
       "error",
       "ignorePackages",
       {
-        "js"  : "never",
-        "jsx" : "never",
-        "ts"  : "never",
-        "tsx" : "never"
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
       }
     ]
   },
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions" : [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
+        "extensions": [".js", ".jsx", ".ts", ".tsx", ".d.ts"]
       }
     }
   }

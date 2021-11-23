@@ -1,8 +1,5 @@
 $ npm init -y
-	• package name: Enter
-	• version
-
-$ .gitignore 생성
+	• .gitignore 생성
 	node_modules        <= 한줄만 입력하면 됨
 
 $ npm i next react react-dom

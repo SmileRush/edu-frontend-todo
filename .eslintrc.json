@@ -14,6 +14,7 @@
   },
   "plugins" : ["react", "@typescript-eslint"],
   "rules"   : {
+    "no-trailing-spaces"                    : "off",                     // 코드의 내용이 없을 때, 빈 공간에 대한 에러
     "semi"                                  : "off",                     // 코드의 끝에 세미콜론을 붙여야 한다.
     "linebreak-style"                       : "off",                     // OS별 개행(=줄바꿈) "\n"(LF) 및 "\r\n"(CRLF) 규칙을 off
     "@typescript-eslint/quotes"             : ["error", "single"],       // 싱글 쿼터('') 사용 1  vs  더블 쿼터("")

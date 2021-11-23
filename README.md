@@ -2,12 +2,12 @@ $ 로 시작하는 것은 cmd(=terminal, powershell 등)에 입력하라는 의�
 ~ 는 프로젝트의 최상위 폴더 경로를 의미함.  
 
 
-#$ npm init -y  
+# $ npm init -y  
 	• .gitignore 생성  
 	node_modules        <= 한줄만 입력하면 됨  
 
-$ npm i next react react-dom  
-$ npm i -D typescript @types/react @types/node  
+## $ npm i next react react-dom  
+### $ npm i -D typescript @types/react @types/node  
 	• package.json  
 	  "scripts": {  
 	    "dev": "next",  

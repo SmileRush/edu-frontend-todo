@@ -1,18 +1,87 @@
-투두리스트 바디(=Item) 만들기
+아이콘 사용하기
 ======================
 
 ### ~/components/TodoList/index.tsx
 
 ===================================
 ## 어려운 부분 : ~/components/TodoList/index.tsx
-### 논리 연산자 (!) 이해하기!!
-### 변수의 앞에 !를 붙이면, true를 false로, false를 true로 (=쉽게 말해서 반대로) 바꿔주는 문법.
+### 아이콘을 사용하는 방법은 다양하다.
+### react-icons 라이브러리를 사용할 수도 있고,
+### CDN으로 Font를 받았던 것처럼, 받아 사용할 수도 있다.
+### 또한 다른 방법도 많으니 한번 사용해보자
+-----------------------------------
+## iconmonstr 사이트 이용하기
+### iconmonstr는 원하는 아이콘 이미지들을 검색하고 다운로드 받을 수 있는 사이트이다.
+### https://iconmonstr.com/
+### 여기에서 "휴지통(trash can)"과 "체크마크(check)"를 검색해서 다운로드 받아본다.
+```
+https://iconmonstr.com 접속
+trash can 검색
+원하는 trash can 이미지 클릭
+(SVG로 다운 받기 : 기본적으로 선택되어져 있으므로 다른 조작은 X)
+
+I agree to the license agreement 에 체크해주고,
+Download 클릭하면 svg 아이콘을 얻을 수 있다. (Embed를 클릭하여 Code로 다운받을 수도 있다.)
+
+(아이콘은 svg 확장자를 사용하는 것이 가장 성능이 좋다.)
+(*.svg 확장자를 사용하게 되면 확대 & 축소를 하게 되더라도 이미지가 깨지지 않는다.)
+
+다운로드 받은 파일은 이름을 변경한 후 public 폴더에 저장한다.
+
+~/public/statics/svg/trash_can.svg
+~/public/statics/svg/check_mark.svg
 
 ```
-! 문법
 
+=====================================
+## 어려운 부분 : ~/components/TodoList/index.tsx
+### 이해하기!!
+### 전체 코드. 어디는 이해되고, 어디는 이해안되는지 한줄한줄 체크한 후 물어봐주세용
+```
+다운로드 받은 SVG를 svg component로써,
+우리 앱에 사용하기 위한 설정
+
+reference: https://github.com/zeit/next.js/tree/canary/examples/svg-components
+
+1. svg를 React 아나에서 Component로 사용하기 위한 Babel Plugin을 설치한다
+$ npm i -D babel-plugin-inline-react-svg
+
+2. 설치를 마쳤다면, babel 파일에 설정을 추가한다.
+* 기존 .babelrc 
+{
+  "presets": ["next/babel"],
+  "plugins": [["styled-components", { "ssr": true }]]
+}
+
+* 변경 .babelrc
+{
+  "presets": ["next/babel"],
+  "plugins": [["styled-components", { "ssr": true }], "inline-react-svg"]
+}
+
+3. 모든 설치, 설정을 마쳤으니 TodoList 컴포넌트에서 svg 아이콘들을 사용하기 위해 불러오기
+~/components/TodoList/index.tsx
+
+import TrashCanIcon from '../public/statics/svg/trash_can.svg'
+import CheckMarkIcon from '../public/statics/svg/check_mark.svg'
+
+우리가 설치한 SVG를 저장한 위치에서, import 해오는 것임.
+```
+
+그리고 *.svg 라는 모듈을 찾을 수 없다는 에러가 나온다면,
+.svg에 대한 모듈 타입을 지정해주어 문제를 해결 할 수 있다.
+
+~/types/image.d.ts
+```
+declare module '*.svg'
+```
+
+=====================================
+## 논리 연산자 ! 문법
+```
 ex) 예시 null, "", undefined, "anything", 12 등에 ! 문법을 붙이면 어떻게 작동할까?
-console.log(...)
+console.log(!null, !"", !undefined, !"anything", !12, !!"anything") 함수를 실행시키면,
+어떤 내용이 Console에 Log될까
 
 !null         => true
 !""           => true
@@ -23,15 +92,16 @@ console.log(...)
 ```
 
 =====================================
-## 어려운 부분 : ~/components/TodoList/index.tsx
-### 이해하기!!
-### 전체 코드. 어디는 이해되고, 어디는 이해안되는지 한줄한줄 체크한 후 물어봐주세용
+# 최종 #8 최종 완성 코드
+
 ```
 import React from 'react'
 import styled from 'styled-components'
 import palette from '../../styles/palette'
 import { TodoListType } from '../../types/todo'
 import { countTodoNumberByColors2 } from './countTodoNumberByColors2'
+import TrachCanIcon from '../../public/statics/svg/trash_can.svg'
+import CheckMarkIcon from '../../public/statics/svg/check_mark.svg'
 
 const Container = styled.div`
   width: 100%;
@@ -131,6 +201,22 @@ const Container = styled.div`
         display: flex;
         margin-right: 12px;
         
+        svg {
+          &:first-child {
+            margin-right: 16px;
+          }
+        }
+        
+        .todo-trash-can {
+          path {
+            fill: ${palette.deep_red};
+          }
+        }
+        
+        .todo-check-mark {
+          fill: ${palette.deep_green};
+        }
+        
         .todo-button {
           width: 20px;
           height: 20px;
@@ -166,19 +252,27 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
           ))}
         </div>
       </div>
-      {/* Todo Left Side */}
+      {/* Todo Body, Item */}
       <ul className='todo-list'>
         {todos.map((todo) => (
           <li className='todo-item' key={todo.id}>
+            {/* Todo Left Side */}
             <div className='todo-left-side'>
               <div className={`todo-color-block bg-${todo.color}`} />
               <p className={`todo-text ${todo.checked ? 'checked-todo-text' : ''}`}>
                 {todo.text}
               </p>
             </div>
+            {/* Todo Right Side */}
             <div className='todo-right-side'>
+              {todo.checked && (
+                <>
+                  <TrachCanIcon className='todo-trash-can' onClick={() => {}} />
+                  <CheckMarkIcon className='todo-check-mark' onClick={() => {}} />
+                </>
+              )}
               {!todo.checked && (
-                <button className='todo-button' onClick={() => {}} />
+                <button type='button' className='todo-button' onClick={() => {}} />
               )}
             </div>
           </li>
@@ -189,24 +283,4 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
 }
 
 export default TodoList
-
-/* 
- * Object.keys() 를 이용하면 => 객체(=Object)의 Key 값들을 배열 형태로 얻을 수 있다.
- * keys 배열을 map 함수를 이용하여 => 색깔과 개수의 JSX를 리턴하였다.
- * 그리고 className에 'bg${color}' 값을 부여해서, 알맞은 색상을 포현하였다.
-*/
-
-/* 
- * Todo Left Side를 Todo Header와 동일한 방법으로 제어했다.
- * todo.color를 template literal을 이용하여 className으로 색깔을 주었다.
- * 그리고 todo.checked 값을 사용하여 true일 때 className을 주었고,
- * text-decoration: line-through를 사용하여 빗금 처리를 하였다.
-*/
-
-/* 
- * Todo의 checked가 false라면 => 체크할 수 있는 동그란 버튼을 나오게 하고,
- * Todo의 checked가 true라면  => 삭제와 체크 해제 버튼을 만들 것이다.
- *
-*/
 ```
-=====================================

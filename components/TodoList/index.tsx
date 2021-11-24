@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import palette from '../../styles/palette'
 import { TodoListType } from '../../types/todo'
 import { countTodoNumberByColors2 } from './countTodoNumberByColors2'
+import TrachCanIcon from '../../public/statics/svg/trash_can.svg'
+import CheckMarkIcon from '../../public/statics/svg/check_mark.svg'
 
 const Container = styled.div`
   width: 100%;
@@ -102,6 +104,22 @@ const Container = styled.div`
         display: flex;
         margin-right: 12px;
         
+        svg {
+          &:first-child {
+            margin-right: 16px;
+          }
+        }
+        
+        .todo-trash-can {
+          path {
+            fill: ${palette.deep_red};
+          }
+        }
+        
+        .todo-check-mark {
+          fill: ${palette.deep_green};
+        }
+        
         .todo-button {
           width: 20px;
           height: 20px;
@@ -137,19 +155,27 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
           ))}
         </div>
       </div>
-      {/* Todo Left Side */}
+      {/* Todo Body, Item */}
       <ul className='todo-list'>
         {todos.map((todo) => (
           <li className='todo-item' key={todo.id}>
+            {/* Todo Left Side */}
             <div className='todo-left-side'>
               <div className={`todo-color-block bg-${todo.color}`} />
               <p className={`todo-text ${todo.checked ? 'checked-todo-text' : ''}`}>
                 {todo.text}
               </p>
             </div>
+            {/* Todo Right Side */}
             <div className='todo-right-side'>
+              {todo.checked && (
+                <>
+                  <TrachCanIcon className='todo-trash-can' onClick={() => {}} />
+                  <CheckMarkIcon className='todo-check-mark' onClick={() => {}} />
+                </>
+              )}
               {!todo.checked && (
-                <button className='todo-button' onClick={() => {}} />
+                <button type='button' className='todo-button' onClick={() => {}} />
               )}
             </div>
           </li>
@@ -160,22 +186,3 @@ const TodoList: React.FC<IProps> = ({ todos }) => {
 }
 
 export default TodoList
-
-/* 
- * Object.keys() 를 이용하면 => 객체(=Object)의 Key 값들을 배열 형태로 얻을 수 있다.
- * keys 배열을 map 함수를 이용하여 => 색깔과 개수의 JSX를 리턴하였다.
- * 그리고 className에 'bg${color}' 값을 부여해서, 알맞은 색상을 포현하였다.
-*/
-
-/* 
- * Todo Left Side를 Todo Header와 동일한 방법으로 제어했다.
- * todo.color를 template literal을 이용하여 className으로 색깔을 주었다.
- * 그리고 todo.checked 값을 사용하여 true일 때 className을 주었고,
- * text-decoration: line-through를 사용하여 빗금 처리를 하였다.
-*/
-
-/* 
- * Todo의 checked가 false라면 => 체크할 수 있는 동그란 버튼을 나오게 하고,
- * Todo의 checked가 true라면  => 삭제와 체크 해제 버튼을 만들 것이다.
- *
-*/
